@@ -1,5 +1,5 @@
 const express = require('express');
-const { readFiles } = require('./utils/talkers');
+const { readFiles, getTalkers } = require('./utils/talkers');
 
 const app = express();
 
@@ -15,6 +15,17 @@ app.get('/talker', async (req, res) => {
       return res.status(200).json([]);
     }
     return res.status(200).json(file);
+  } catch (error) {
+    return null;
+  }
+});
+
+app.get('/talker/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await getTalkers(Number(id));
+    return data ? res.status(HTTP_OK_STATUS)
+      .json(data) : res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   } catch (error) {
     return null;
   }

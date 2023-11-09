@@ -12,9 +12,10 @@ const readFiles = async () => {
   }
 };
 
-const getTalkers = async () => {
+const getTalkers = async (id) => {
   const data = await readFiles();
-  return data;
+  const foundTalkers = data.find((talker) => talker.id === id);
+  return foundTalkers;
 };
 
 module.exports = {
