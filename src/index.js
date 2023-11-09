@@ -1,5 +1,6 @@
 const express = require('express');
 const { readFiles, getTalkers } = require('./utils/talkers');
+const Token = require('./utils/generateToken');
 
 const app = express();
 
@@ -29,6 +30,11 @@ app.get('/talker/:id', async (req, res) => {
   } catch (error) {
     return null;
   }
+});
+
+app.post('/login', async (req, res) => {
+  const randomToken = Token();
+  return res.status(200).json({ token: randomToken });
 });
 
 // não remova esse endpoint, ele é para o avaliador funcionar
