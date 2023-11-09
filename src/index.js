@@ -1,6 +1,8 @@
 const express = require('express');
 const { readFiles, getTalkers } = require('./utils/talkers');
 const Token = require('./utils/generateToken');
+const { validateEmail } = require('./utils/loginCheker');
+const { validatePassword } = require('./utils/passwordCheker');
 
 const app = express();
 
@@ -32,7 +34,7 @@ app.get('/talker/:id', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', validateEmail, validatePassword, async (req, res) => {
   const randomToken = Token();
   return res.status(200).json({ token: randomToken });
 });
