@@ -18,7 +18,18 @@ const getTalkers = async (id) => {
   return foundTalkers;
 };
 
+const saveTalkers = async (talker) => {
+  try {
+    const data = await readFiles();
+    const saveData = [...data, talker];
+    await fs.writeFile(path, JSON.stringify(saveData));
+  } catch (error) {
+    return null;
+  }
+};
+
 module.exports = {
   readFiles, 
   getTalkers,
+  saveTalkers,
 };
