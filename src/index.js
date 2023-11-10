@@ -1,5 +1,5 @@
 const express = require('express');
-const { readFiles, getTalkers, saveTalkers } = require('./utils/talkers');
+const { readFiles, getTalkers, saveTalkers, talkerPut } = require('./utils/talkers');
 const Token = require('./utils/generateToken');
 const { validateEmail } = require('./middlewares/emailChecker');
 const { validatePassword } = require('./middlewares/passwordChecker');
@@ -63,6 +63,25 @@ app.post('/talker', authenticateToken,
     };
     await saveTalkers(newTalker);
     return res.status(201).json(newTalker);
+  });
+
+app.put('/talker/:id', authenticateToken, 
+  isValidName,
+  isAgeValid, 
+  isValidTalk,
+  isvalidWatchedAt,
+  isValidRate,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    const data = req.body;
+    const newTalk = { id, ...data };
+    const talkPut = await talkerPut(newTalk, id);
+    if (!talkPut) {
+      return res.status(404).json({
+        message: 'Pessoa palestrante não encontrada',
+      });
+    }
+    return res.status(200).json(newTalk);
   });
 
 // não remova esse endpoint, ele é para o avaliador funcionar

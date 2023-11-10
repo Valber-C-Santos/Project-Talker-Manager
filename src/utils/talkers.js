@@ -27,9 +27,24 @@ const saveTalkers = async (talker) => {
     return null;
   }
 };
+const talkerPut = async (talker, id) => {
+  try {
+    const talk = await readFiles();
+    const index = talk.findIndex((ind) => ind.id === id);
+    if (index === -1) {
+      return null;
+    }
+    talk[index] = { id, ...talker };
+    await fs.writeFile(path, JSON.stringify(talk));
+    return true;
+  } catch (error) {
+    return console.log('VALORIZAAAAA');
+  }
+};
 
 module.exports = {
   readFiles, 
   getTalkers,
   saveTalkers,
+  talkerPut,
 };
