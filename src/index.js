@@ -1,14 +1,14 @@
 const express = require('express');
 const { readFiles, getTalkers, saveTalkers } = require('./utils/talkers');
 const Token = require('./utils/generateToken');
-const { validateEmail } = require('./utils/emailChecker');
-const { validatePassword } = require('./utils/passwordChecker');
-const isValidTalk = require('./utils/talkerChecker');
-const isValidName = require('./utils/nameChecker');
-const authenticateToken = require('./utils/tokenChecker');
-const isAgeValid = require('./utils/ageChecker');
-const isValidRate = require('./utils/rateChecker');
-const isvalidWatchedAt = require('./utils/watchedATChecker');
+const { validateEmail } = require('./middlewares/emailChecker');
+const { validatePassword } = require('./middlewares/passwordChecker');
+const isValidTalk = require('./middlewares/talkerChecker');
+const isValidName = require('./middlewares/nameChecker');
+const authenticateToken = require('./middlewares/tokenChecker');
+const isAgeValid = require('./middlewares/ageChecker');
+const isValidRate = require('./middlewares/rateChecker');
+const isvalidWatchedAt = require('./middlewares/watchedATChecker');
 
 const app = express();
 
