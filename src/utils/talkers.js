@@ -38,7 +38,17 @@ const talkerPut = async (talker, id) => {
     await fs.writeFile(path, JSON.stringify(talk));
     return true;
   } catch (error) {
-    return console.log('VALORIZAAAAA');
+    return null;
+  }
+};
+
+const talkDelete = async (id) => {
+  try {
+    const talk = await readFiles();
+    const deleteTalk = talk.filter((palestrante) => palestrante.id !== id);
+    await fs.writeFile(path, JSON.stringify(deleteTalk));
+  } catch (error) {
+    return null;
   }
 };
 
@@ -47,4 +57,5 @@ module.exports = {
   getTalkers,
   saveTalkers,
   talkerPut,
+  talkDelete,
 };
